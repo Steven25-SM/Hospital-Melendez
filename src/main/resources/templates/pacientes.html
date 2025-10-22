@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pacientes - Hospital Melendez</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<div class="container mt-4">
+    <h2 class="mb-4 text-center text-primary fw-bold">Gestión de Pacientes</h2>
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+
+
+            <form th:action="@{/pacientes/guardar}" th:object="${paciente}" method="post" class="mt-3">
+                <input type="hidden" th:field="*{idPaciente}">
+
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">DNI</label>
+                        <input type="text" th:field="*{dni}" class="form-control" placeholder="Ingrese DNI" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Nombres</label>
+                        <input type="text" th:field="*{nombres}" class="form-control" placeholder="Ingrese nombres" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Apellidos</label>
+                        <input type="text" th:field="*{apellidos}" class="form-control" placeholder="Ingrese apellidos" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Fecha Nacimiento</label>
+                        <input type="date" th:field="*{fechaNacimiento}" class="form-control"
+                               th:value="${#temporals.format(paciente.fechaNacimiento, 'yyyy-MM-dd')}" required>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Sexo</label>
+                        <select th:field="*{sexo}" class="form-select" required>
+                            <option value="">Seleccione</option>
+                            <option value="M">Masculino</option>
+                            <option value="F">Femenino</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Teléfono</label>
+                        <input type="text" th:field="*{telefono}" class="form-control" placeholder="Ingrese teléfono">
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Correo</label>
+                        <input type="email" th:field="*{correo}" class="form-control" placeholder="Ingrese correo electrónico">
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Dirección</label>
+                        <input type="text" th:field="*{direccion}" class="form-control" placeholder="Ingrese dirección">
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Estado</label>
+                        <select th:field="*{estado}" class="form-select">
+                            <option value="activo">Activo</option>
+                            <option value="inactivo">Inactivo</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary w-100">
+                            <span th:text="${paciente.idPaciente != null} ? 'Actualizar' : 'Guardar'"></span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <table class="table table-striped align-middle">
+        <thead class="table-dark text-center">
+        <tr>
+            <th>ID</th>
+            <th>DNI</th>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Teléfono</th>
+            <th>Correo</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="p : ${listaPacientes}">
+            <td th:text="${p.idPaciente}"></td>
+            <td th:text="${p.dni}"></td>
+            <td th:text="${p.nombres}"></td>
+            <td th:text="${p.apellidos}"></td>
+            <td th:text="${p.telefono}"></td>
+            <td th:text="${p.correo}"></td>
+            <td th:text="${p.estado}"></td>
+            <td class="text-center">
+                <a th:href="@{'/pacientes/editar/' + ${p.idPaciente}}" class="btn btn-warning btn-sm me-1">Editar</a>
+                <a th:href="@{'/pacientes/eliminar/' + ${p.idPaciente}}" class="btn btn-danger btn-sm"
+                   onclick="return confirm('¿Seguro que deseas eliminar este paciente?')">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="text-center mt-3">
+        <a th:href="@{/}" class="btn btn-secondary">Volver al Inicio</a>
+    </div>
+</div>
+</body>
+</html>
