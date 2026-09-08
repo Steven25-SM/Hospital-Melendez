@@ -13,11 +13,6 @@ Plataforma web para la gestión integral de operaciones hospitalarias, administr
 - [Autenticación y Roles](#autenticación-y-roles)
 - [Tecnologías Utilizadas](#tecnologías-utilizadas)
 - [Estructura del Proyecto](#estructura-del-proyecto)
-- [Requisitos Previos](#requisitos-previos)
-- [Instalación y Ejecución](#instalación-y-ejecución)
-- [Datos Iniciales de Prueba](#datos-iniciales-de-prueba)
-- [Estado del Proyecto](#estado-del-proyecto)
-- [Licencia](#licencia)
 
 ---
 
