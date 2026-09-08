@@ -26,4 +26,9 @@ public class FacturaServiceImpl implements FacturaService {
 
     @Override
     public void eliminar(Long id) { repo.deleteById(id); }
+    
+    @Override
+    public List<Factura> listarPorPaciente(Long idPaciente) {
+        return repo.findByPacienteIdPaciente(idPaciente);
+    }
 }

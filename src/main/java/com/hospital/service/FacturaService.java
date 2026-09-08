@@ -9,4 +9,5 @@ public interface FacturaService {
     Optional<Factura> buscarPorId(Long id);
     Factura guardar(Factura factura);
     void eliminar(Long id);
+    List<Factura> listarPorPaciente(Long idPaciente);
 }

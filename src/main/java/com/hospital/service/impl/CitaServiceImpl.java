@@ -26,4 +26,9 @@ public class CitaServiceImpl implements CitaService {
 
     @Override
     public void eliminar(Long id) { repo.deleteById(id); }
+
+    @Override
+    public List<Cita> listarPorPaciente(Long idPaciente) {
+        return repo.findByPacienteIdPaciente(idPaciente);
+    }
 }

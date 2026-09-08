@@ -14,6 +14,13 @@
         <img th:src="@{https://previews.123rf.com/images/stylephotographs/stylephotographs1308/stylephotographs130800089/21380363-senior-doctor-talking-with-receptionist-at-hospital-reception.jpg}" alt="Fondo login" class="login-bg-img">
     </div>
 
+    <div th:if="${param.registro}"
+         class="alert alert-success text-center">
+
+        Cuenta creada correctamente. Ya puedes iniciar sesión.
+
+    </div>
+
     <div class="login-form-container text-start">
         <div class="login-card shadow-lg rounded-4 p-5">
             <div class="text-center mb-4">
@@ -32,8 +39,8 @@
                     <input type="password" name="password" id="password" class="form-control login-input" placeholder="Ingrese su contraseña" required>
                 </div>
 
-                <button type="submit" class="btn btn-light w-100 fw-bold py-2 mb-3">Ingresar</button>
-                <div th:if="${param.error}" class="alert alert-danger text-center mt-3 py-2">
+                <button type="submit" class="btn w-100 fw-bold py-2 mb-3" style="background-color: #a3e4d7; color: #117a65;">Ingresar</button>
+                <div th:if="${param.error}" class="alert alert-danger text-center mt- py-2">
                     Usuario o contraseña incorrectos
                 </div>
                 <div th:if="${param.logout}" class="alert alert-success text-center mt-3 py-2">
@@ -45,6 +52,12 @@
             </form>
 
             <p class="text-center text-light small mb-0">¿Olvidó su contraseña?</p>
+            <p class="text-center text-light small mt-3 mb-0">
+                ¿No tienes una cuenta?
+                <a th:href="@{/registro}" class="text-white fw-bold">
+                    Regístrate aquí
+                </a>
+            </p>
         </div>
     </div>
 </div>

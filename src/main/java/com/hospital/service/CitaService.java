@@ -9,4 +9,5 @@ public interface CitaService {
     Optional<Cita> buscarPorId(Long id);
     Cita guardar(Cita cita);
     void eliminar(Long id);
+    List<Cita> listarPorPaciente(Long idPaciente);
 }

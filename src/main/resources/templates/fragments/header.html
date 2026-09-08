@@ -1,25 +1,161 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <th:block th:fragment="header">
+
     <header class="header shadow-sm">
+
         <div class="container d-flex justify-content-between align-items-center py-3">
+
             <div class="d-flex align-items-center">
-                <img th:src="@{/images/header-logo.png}" alt="Hospital Logo" height="60" class="me-3">
+
+                <img th:src="@{/images/header-logo.png}"
+                     alt="Hospital Logo"
+                     height="60"
+                     class="me-3">
+
                 <div>
-                    <h1 class="fw-bold m-0 text-white">Hospital Melendez</h1>
+                    <h1 class="fw-bold m-0 text-white">
+                        Hospital Melendez
+                    </h1>
                 </div>
+
             </div>
+
             <nav>
+
                 <ul class="nav">
-                    <li class="nav-item"><a class="nav-link nav-gray fw-semibold" th:href="@{/}">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link nav-gray fw-semibold" th:href="@{/pacientes}">Pacientes</a></li>
-                    <li class="nav-item"><a class="nav-link nav-gray fw-semibold" th:href="@{/medicos}">Médicos</a></li>
-                    <li class="nav-item"><a class="nav-link nav-gray fw-semibold" th:href="@{/citas}">Citas</a></li>
-                    <li class="nav-item"><a class="nav-link nav-gray fw-semibold" th:href="@{/hospitalizacion}">Hospitalización</a></li>
-                    <li class="nav-item"><a class="nav-link nav-gray fw-semibold" th:href="@{/facturacion}">Facturación</a></li>
+
+                    <!-- Visible para todos -->
+                    <li class="nav-item">
+                        <a class="nav-link nav-gray fw-semibold"
+                           th:href="@{/}">
+                            Inicio
+                        </a>
+                    </li>
+
+
+                    <!-- ========================= -->
+                    <!--          ADMIN            -->
+                    <!-- ========================= -->
+
+                    <li class="nav-item"
+                        sec:authorize="hasRole('ADMIN')">
+
+                        <a class="nav-link nav-gray fw-semibold"
+                           th:href="@{/pacientes}">
+                            Pacientes
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item"
+                        sec:authorize="hasRole('ADMIN')">
+
+                        <a class="nav-link nav-gray fw-semibold"
+                           th:href="@{/medicos}">
+                            Médicos
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item"
+                        sec:authorize="hasRole('ADMIN')">
+
+                        <a class="nav-link nav-gray fw-semibold"
+                           th:href="@{/citas}">
+                            Citas
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item"
+                        sec:authorize="hasRole('ADMIN')">
+
+                        <a class="nav-link nav-gray fw-semibold"
+                           th:href="@{/hospitalizacion}">
+                            Hospitalización
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item"
+                        sec:authorize="hasRole('ADMIN')">
+
+                        <a class="nav-link nav-gray fw-semibold"
+                           th:href="@{/facturacion}">
+                            Facturación
+                        </a>
+
+                    </li>
+
+
+                    <!-- ========================= -->
+                    <!--         PACIENTE           -->
+                    <!-- ========================= -->
+
+                    <li class="nav-item"
+                        sec:authorize="hasRole('PACIENTE')">
+
+                        <a class="nav-link nav-gray fw-semibold"
+                           th:href="@{/medicos}">
+                            Médicos
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item"
+                        sec:authorize="hasRole('PACIENTE')">
+
+                        <a class="nav-link nav-gray fw-semibold"
+                           th:href="@{/citas}">
+                            Citas
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item"
+                        sec:authorize="hasRole('PACIENTE')">
+
+                        <a class="nav-link nav-gray fw-semibold"
+                           th:href="@{/facturacion}">
+                            Facturación
+                        </a>
+
+                    </li>
+
+
+                    <!-- ========================= -->
+                    <!--           LOGOUT           -->
+                    <!-- ========================= -->
+
+                    <li class="nav-item"
+                        sec:authorize="isAuthenticated()">
+
+                        <form th:action="@{/logout}"
+                              method="post"
+                              class="d-inline">
+
+                            <button type="submit"
+                                    class="nav-link nav-gray fw-semibold border-0 bg-transparent">
+
+                                Cerrar sesión
+
+                            </button>
+
+                        </form>
+
+                    </li>
+
                 </ul>
+
             </nav>
+
         </div>
+
     </header>
+
 </th:block>
+
 </html>

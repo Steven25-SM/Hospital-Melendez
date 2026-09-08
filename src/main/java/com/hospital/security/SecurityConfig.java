@@ -18,31 +18,65 @@ public class SecurityConfig {
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+
         provider.setUserDetailsService(userDetailsService);
         provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+
         return provider;
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
         http
                 .authenticationProvider(authenticationProvider())
+
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/css/**", "/images/**", "/", "/login").permitAll()
+
+                        .requestMatchers(
+                                "/css/**",
+                                "/images/**",
+                                "/",
+                                "/login",
+                                "/registro"
+                        ).permitAll()
+
+                        .requestMatchers(
+                                "/pacientes/**",
+                                "/hospitalizacion/**"
+                        ).hasRole("ADMIN")
+
+                        .requestMatchers("/medicos").hasAnyRole("ADMIN", "PACIENTE")
+
+                        .requestMatchers(
+                                "/medicos/guardar",
+                                "/medicos/editar/**",
+                                "/medicos/eliminar/**"
+                        ).hasRole("ADMIN")
+
+                        .requestMatchers("/citas/**")
+                        .hasAnyRole("ADMIN", "PACIENTE")
+
+                        .requestMatchers("/facturacion/**")
+                        .hasAnyRole("ADMIN", "PACIENTE")
+
                         .anyRequest().authenticated()
                 )
+
                 .formLogin(login -> login
                         .loginPage("/login")
-                        .loginProcessingUrl("/login")  // 👈 procesa el POST
+                        .loginProcessingUrl("/login")
                         .defaultSuccessUrl("/", true)
                         .failureUrl("/login?error=true")
                         .permitAll()
                 )
+
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout=true")
                         .permitAll()
                 )
+
                 .csrf(csrf -> csrf.disable());
 
         return http.build();

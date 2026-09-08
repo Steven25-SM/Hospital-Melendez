@@ -2,6 +2,7 @@ package com.hospital.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -21,7 +22,10 @@ public class Paciente {
     private String direccion;
     private String telefono;
     private String correo;
-    private String estado; // activo / inactivo
+    private String estado;
+
+    @OneToOne(mappedBy = "paciente")
+    private Usuario usuario;
 
     @OneToOne(mappedBy = "paciente", cascade = CascadeType.ALL)
     private HistoriaClinica historiaClinica;
